@@ -9,12 +9,11 @@ async function loadContract() {
 }
 
 async function load() {
+  web3 = new Web3(window.ethereum || "https://node.cheapeth.org/rpc");
   if (window.ethereum) {
-    web3 = new Web3(window.ethereum);
     window.ethereum.enable();
-
-    contract = await loadContract();
   }
+  contract = await loadContract();
 }
 
 export async function checkNetwork() {

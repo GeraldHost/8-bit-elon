@@ -26,11 +26,13 @@ function NetworkCheck() {
     return () => clearTimeout(accountInterval);
   });
 
-  return validNetwork ? null : (
-    <div className="bg-danger text-white p-2 text-center">
-      Please make sure you are connected to the cheapeth network
-    </div>
-  );
+  const message = !window.ethereum
+    ? "Please make sure you have metamask installed"
+    : "Please make sure you are connected to the cheapeth network";
+
+  return !validNetwork || !window.ethereum ? (
+    <div className="bg-danger text-white p-2 text-center">{message}</div>
+  ) : null;
 }
 
 const handleWithdraw = () => {
@@ -49,7 +51,7 @@ function App() {
                 8 <span>bit</span> elon
               </h1>
             </Col>
-            <Col xs={8}>
+            <Col xs={12} md={8}>
               <p className="intro">
                 Once there was a man who really was a Musk. He liked to build
                 robots and rocket ships and such.
@@ -62,13 +64,13 @@ function App() {
       <Container>
         <Row className="my-4 py-5">
           {products.map((product) => (
-            <Col key={product.title} xs={4} className="mb-4">
+            <Col key={product.title} xs={12} md={4} className="mb-4">
               <Product {...product} />
             </Col>
           ))}
         </Row>
         <Row className="my-4 py-5">
-          <Col xs={10}>
+          <Col xs={12} md={10}>
             <h1>About</h1>
             <p>
               This project was a bit of fun to play around with implementing and
