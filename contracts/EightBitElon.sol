@@ -4,7 +4,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract GeraldToken is ERC721, Ownable {
+contract EightBitElon is ERC721, Ownable {
     
     using Strings for uint256;
     using Counters for Counters.Counter;

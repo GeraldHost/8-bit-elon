@@ -14,12 +14,12 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const GeraldToken = await hre.ethers.getContractFactory("GeraldToken");
-  const gerald = await GeraldToken.deploy("GeraldToken", "GER");
+  const EightBitElon = await hre.ethers.getContractFactory("EightBitElon");
+  const gerald = await EightBitElon.deploy("EightBitElon", "8BE");
 
   await gerald.deployed();
 
-  console.log("GeraldToken deployed to:", gerald.address);
+  console.log("EightBitElon deployed to:", gerald.address);
 
   // create tokens
   const to = "0xCc58a00B5C2e0Fef71Cc98d34c1d7c3D27B6935F"; // main ceth account
