@@ -35,7 +35,7 @@ function NetworkCheck() {
 
 const handleWithdraw = () => {
   ethereum.withdraw();
-}
+};
 
 function App() {
   return (
@@ -62,7 +62,7 @@ function App() {
       <Container>
         <Row className="my-4 py-5">
           {products.map((product) => (
-            <Col key={product.titel} xs={4} className="mb-4">
+            <Col key={product.title} xs={4} className="mb-4">
               <Product {...product} />
             </Col>
           ))}
@@ -89,7 +89,10 @@ function App() {
               transaction to the "setValue" method
             </p>
             <p>
-              If you have bought and sold any of the NFTs you can <a href="#" onClick={handleWithdraw}>withdraw here</a>
+              If you have bought and sold any of the NFTs you can{" "}
+              <a href="#" onClick={handleWithdraw}>
+                withdraw here
+              </a>
             </p>
           </Col>
         </Row>

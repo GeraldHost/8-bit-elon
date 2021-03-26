@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 
-import { getOwner, getValue, getName, buy } from "./ethereum";
+import { getOwner, getValue, getName, getUri, buy } from "./ethereum";
 
 const Status = {
   READY: "ready",
@@ -9,10 +9,9 @@ const Status = {
 };
 export function Product({ tokenId, imageSrc, title }) {
   const timer = useRef(null);
-  
+
   const [owner, setOwner] = useState(null);
-  const [tokenValue, setTokenValue] = useState(null);
-  const [tokenName, setTokenName] = useState(null);
+  const [meta, setMeta] = useState({});
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -23,10 +22,12 @@ export function Product({ tokenId, imageSrc, title }) {
       try {
         const addr = await getOwner(tokenId);
         setOwner(addr);
+
         const value = await getValue(tokenId);
-        setTokenValue(value);
         const name = await getName(tokenId);
-        setTokenName(name);
+        const uri = await getUri(tokenId);
+
+        setMeta({ name, value, uri });
       } catch (_) {
         setOwner("N/A");
       }
@@ -51,7 +52,7 @@ export function Product({ tokenId, imageSrc, title }) {
   const handleBuyToken = async () => {
     try {
       setStatus(Status.PROCESSING);
-      const resp = await buy(tokenId, tokenValue.toString());
+      const resp = await buy(tokenId, meta.value.toString());
       setStatus(Status.READY);
       setSuccess(true);
     } catch (error) {
@@ -71,8 +72,11 @@ export function Product({ tokenId, imageSrc, title }) {
             <br />
             <small title={owner}>Owner: {owner}</small>
             <br />
-            <small>Value: {tokenValue}</small><br/>
-            <small>Name: {tokenName}</small>
+            <small>Value: {meta.value}</small>
+            <br />
+            <small>Name: {meta.name}</small>
+            <br />
+            <small>Uri: IPFS: {meta.uri}</small>
           </p>
         </div>
       </Card.Body>
@@ -91,12 +95,12 @@ export function Product({ tokenId, imageSrc, title }) {
               error ? "btn-product-error bg-danger text-white" : ""
             }`}
             onClick={handleBuyToken}
-            disabled={status !== Status.READY || tokenValue === null || error}
+            disabled={status !== Status.READY || !meta.value || error}
           >
             {error
               ? error
               : status === Status.READY
-              ? `Buy (${tokenValue} cETH)`
+              ? `Buy (${meta.value} cETH)`
               : "Processing..."}
           </Button>
         )}

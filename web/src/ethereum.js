@@ -18,7 +18,7 @@ async function load() {
 }
 
 export async function checkNetwork() {
-  const netId = await web3.eth.net.getId()
+  const netId = await web3.eth.net.getId();
   if (netId !== 777) {
     return false;
   }
@@ -37,11 +37,13 @@ export function getName(tokenId) {
   return contract.methods.tokenName(tokenId).call();
 }
 
+export function getUri(tokenId) {
+  return contract.methods.tokenURI(tokenId).call();
+}
+
 export async function withdraw(tokenId) {
   const accounts = await web3.eth.getAccounts();
-  return contract.methods
-    .withdraw()
-    .send({ from: accounts[0] });
+  return contract.methods.withdraw().send({ from: accounts[0] });
 }
 
 export async function buy(tokenId, value) {
