@@ -6,7 +6,7 @@ https://gerald.host/elon/
 
 Once there was a man who really was a Musk. He liked to build robots and rocket ships and such.
 
-<img src="https://im2.ezgif.com/tmp/ezgif-2-dcbf3c62a9b0.gif" width="800px" />
+<img src="https://i.imgur.com/aKW4sAk.gif" width="650px" />
 
 This project was a bit of fun to play around with implementing and deploying an ERC-721 contract (NFTs).
 
