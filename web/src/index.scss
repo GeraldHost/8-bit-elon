@@ -1,0 +1,18 @@
+$theme-colors: (
+  "dark": #4002f7,
+  "primary": #4002f7,
+);
+
+@import "~bootstrap/scss/bootstrap";
+
+@font-face {
+  font-family: "pixelmix";
+  src: local("pixelmix"), url("./fonts/pixelmix.ttf") format("truetype");
+  font-weight: normal;
+}
+
+body {
+  margin: 0;
+  font-family: "pixelmix", sans-serif;
+  background-color: white;
+}

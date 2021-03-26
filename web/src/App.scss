@@ -1,0 +1,28 @@
+.jumbotron {
+  color: white;
+
+  span {
+    color: #fd126a;
+  }
+
+  .text-muted {
+    color: rgba(255, 255, 255, 0.3) !important;
+  }
+}
+
+.container {
+  max-width: 900px !important;
+}
+
+.product-card {
+  border: 2px solid #4002f7;
+
+  .card-footer {
+    padding: 0;
+    display: flex;
+    border: 0;
+    .btn {
+      flex: 1;
+    }
+  }
+}
