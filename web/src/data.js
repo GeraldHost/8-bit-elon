@@ -6,10 +6,10 @@ import YoungElon from "./images/young.png";
 import FlameElon from "./images/not-a-flamethrower.png";
 
 export const products = [
-  { title: "Kanye Elon", imageSrc: KanyeElon, price: 10 },
-  { title: "Wiki Elon", imageSrc: WikiElon, price: 10 },
-  { title: "Grimes Elon", imageSrc: GrimesElon, price: 10 },
-  { title: "Weed Elon", imageSrc: WeedElon, price: 10 },
-  { title: "Young Elon", imageSrc: YoungElon, price: 10 },
-  { title: "Not a Elon", imageSrc: FlameElon, price: 10 },
+  { title: "Kanye Elon", imageSrc: KanyeElon, tokenId: 1 },
+  { title: "Wiki Elon", imageSrc: WikiElon, tokenId: 2 },
+  { title: "Grimes Elon", imageSrc: GrimesElon, tokenId: 3 },
+  { title: "Weed Elon", imageSrc: WeedElon, tokenId: 4 },
+  { title: "Young Elon", imageSrc: YoungElon, tokenId: 5 },
+  { title: "Not a Elon", imageSrc: FlameElon, tokenId: 6 },
 ];

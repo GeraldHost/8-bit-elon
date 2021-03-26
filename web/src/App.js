@@ -1,13 +1,46 @@
-import "./App.scss";
-
+import { useState, useEffect } from "react";
 import { Jumbotron, Container, Row, Col } from "react-bootstrap";
 
 import { Product } from "./Product";
 import { products } from "./data";
+import * as ethereum from "./ethereum";
+
+import "./App.scss";
+
+function NetworkCheck() {
+  const [validNetwork, setValidNetwork] = useState(true);
+
+  const networkCheck = async () => {
+    const validNetwork = await ethereum.checkNetwork();
+    if (!validNetwork) {
+      setValidNetwork(false);
+    } else {
+      setValidNetwork(true);
+    }
+  };
+
+  useEffect(() => {
+    const accountInterval = setInterval(function () {
+      networkCheck();
+    }, 500);
+    return () => clearTimeout(accountInterval);
+  });
+
+  return validNetwork ? null : (
+    <div className="bg-danger text-white p-2 text-center">
+      Please make sure you are connected to the cheapeth network
+    </div>
+  );
+}
+
+const handleWithdraw = () => {
+  ethereum.withdraw();
+}
 
 function App() {
   return (
     <div>
+      <NetworkCheck />
       <Jumbotron fluid className="bg-dark">
         <Container>
           <Row>
@@ -29,7 +62,7 @@ function App() {
       <Container>
         <Row className="my-4 py-5">
           {products.map((product) => (
-            <Col xs={4} className="mb-4">
+            <Col key={product.titel} xs={4} className="mb-4">
               <Product {...product} />
             </Col>
           ))}
@@ -54,6 +87,9 @@ function App() {
             <p>
               The owner of any token can set the value of it by sending a
               transaction to the "setValue" method
+            </p>
+            <p>
+              If you have bought and sold any of the NFTs you can <a href="#" onClick={handleWithdraw}>withdraw here</a>
             </p>
           </Col>
         </Row>
