@@ -1,7 +1,8 @@
 # 8-bit-elon
+
 NFT Website for selling 8 bit elons
 
-https://jacobford.co.uk/8-bit-elon/
+https://gerald.host/elon/
 
 Once there was a man who really was a Musk. He liked to build robots and rocket ships and such.
 
