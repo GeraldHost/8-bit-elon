@@ -1,4 +1,6 @@
 require("@nomiclabs/hardhat-waffle");
+require("@nomiclabs/hardhat-web3");
+
 const fs = require("fs");
 const home = require("os").homedir();
 const keyfile = require("path").join(home, ".cheapethkey");
@@ -30,6 +32,10 @@ module.exports = {
     },
     hardhat: {
       chainId: 1337,
+      mining: {
+        auto: false,
+        interval: 5000
+      }
     },
   },
 };
