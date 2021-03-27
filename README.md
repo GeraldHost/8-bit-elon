@@ -17,4 +17,5 @@ Any user can send cETH to the "buy" method and as long as the amount of cETH the
 The owner of any token can set the value of it by sending a transaction to the "setValue" method
 
 EightBitElon address: `0x86377283E18e3155221EAB138ee74469D96202aA`
+
 EightBitElonV2 address: `0x6622f94aD519559b43658c8319F50c1c13faEEB7`
