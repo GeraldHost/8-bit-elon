@@ -88,13 +88,20 @@ function App() {
             </p>
             <p>
               The owner of any token can set the value of it by sending a
-              transaction to the "setValue" method
+              transaction to the "setValue" method. You can do this from this
+              website once you are the owner you will see an input field and
+              submit button
             </p>
             <p>
               If you have bought and sold any of the NFTs you can{" "}
               <a href="#" onClick={handleWithdraw}>
                 withdraw here
               </a>
+            </p>
+            <p>
+              EightBitElonV2: so I messed up v1 of this contract by making the
+              set token value call onlyOwner This has been fixed in V2 and the
+              tokens from V1 have been transferred and "burnt"
             </p>
           </Col>
         </Row>

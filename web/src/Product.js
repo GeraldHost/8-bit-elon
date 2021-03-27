@@ -1,7 +1,15 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { Card, Button } from "react-bootstrap";
 
-import { getOwner, getValue, getName, getUri, buy } from "./ethereum";
+import {
+  getAccount,
+  getOwner,
+  getValue,
+  getName,
+  getUri,
+  buy,
+  setTokenValue,
+} from "./ethereum";
 
 const Status = {
   READY: "ready",
@@ -9,32 +17,25 @@ const Status = {
 };
 export function Product({ tokenId, imageSrc, title }) {
   const timer = useRef(null);
+  const input = useRef(null);
 
-  const [owner, setOwner] = useState(null);
   const [meta, setMeta] = useState({});
 
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
   const [status, setStatus] = useState(Status.READY);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const addr = await getOwner(tokenId);
-        setOwner(addr);
+  const refresh = useCallback(async () => {
+    const account = await getAccount();
+    const owner = await getOwner(tokenId);
+    const value = await getValue(tokenId);
+    const name = await getName(tokenId);
+    const uri = await getUri(tokenId);
 
-        const value = await getValue(tokenId);
-        const name = await getName(tokenId);
-        const uri = await getUri(tokenId);
-
-        setMeta({ name, value, uri });
-      } catch (_) {
-        setOwner("N/A");
-      }
-    })();
+    setMeta({ owner, name, value, uri, userIsOwner: account === owner });
   }, []);
 
   useEffect(() => {
+    refresh();
     return () => {
       if (timer.current) {
         clearTimeout(timer.current);
@@ -52,12 +53,24 @@ export function Product({ tokenId, imageSrc, title }) {
   const handleBuyToken = async () => {
     try {
       setStatus(Status.PROCESSING);
-      const resp = await buy(tokenId, meta.value.toString());
+      await buy(tokenId, meta.value.toString());
       setStatus(Status.READY);
-      setSuccess(true);
+      refresh();
     } catch (error) {
       toggleError("Something went wrong. Please try again");
       setStatus(Status.READY);
+    }
+  };
+
+  const handleUpdate = async (event) => {
+    event.preventDefault();
+    const value = input.current.value;
+    if (!isNaN(value)) {
+      setStatus(Status.PROCESSING);
+      await setTokenValue(tokenId, value);
+      setStatus(Status.READY);
+      input.current.value = "";
+      refresh();
     }
   };
 
@@ -70,7 +83,7 @@ export function Product({ tokenId, imageSrc, title }) {
           <p className="token-info">
             <small>Token ID: {tokenId}</small>
             <br />
-            <small title={owner}>Owner: {owner}</small>
+            <small title={meta.owner}>Owner: {meta.owner}</small>
             <br />
             <small>Value: {meta.value}</small>
             <br />
@@ -81,12 +94,22 @@ export function Product({ tokenId, imageSrc, title }) {
         </div>
       </Card.Body>
       <Card.Footer>
-        {success ? (
-          <p className="px-4 py-2">
+        {meta.userIsOwner ? (
+          <p className="user-is-owner px-4 py-2">
             <small>
-              Please wait while your transaction is processed. You will soon be
-              the new owner of this token. Refresh this page to check.
+              You are the owner of this token.{" "}
+              <u onClick={handleUpdate}>update value</u>
             </small>
+            <form onSubmit={handleUpdate}>
+              <input ref={input} />
+              <Button
+                className="rounded-0"
+                type="submit"
+                disabled={status === Status.PROCESSING}
+              >
+                {status === Status.PROCESSING ? "loading" : "Submit"}
+              </Button>
+            </form>
           </p>
         ) : (
           <Button

@@ -40,17 +40,27 @@ export function getUri(tokenId) {
   return contract.methods.tokenURI(tokenId).call();
 }
 
-export async function withdraw(tokenId) {
+export async function setTokenValue(tokenId, value) {
+  const account = await getAccount();
+  return contract.methods.setTokenValue(tokenId, value).send({ from: account });
+}
+
+export async function withdraw() {
+  const account = await getAccount();
+  return contract.methods.withdraw().send({ from: account });
+}
+
+export async function getAccount() {
   const accounts = await web3.eth.getAccounts();
-  return contract.methods.withdraw().send({ from: accounts[0] });
+  return accounts[0];
 }
 
 export async function buy(tokenId, value) {
-  const accounts = await web3.eth.getAccounts();
+  const account = await getAccount();
   const amountToSend = web3.utils.toWei(value, "ether");
   return contract.methods
     .buy(tokenId)
-    .send({ from: accounts[0], value: amountToSend });
+    .send({ from: account, value: amountToSend });
 }
 
 load();

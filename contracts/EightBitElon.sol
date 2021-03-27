@@ -4,7 +4,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract EightBitElon is ERC721, Ownable {
+contract EightBitElonV2 is ERC721, Ownable {
     
     using Strings for uint256;
     using Counters for Counters.Counter;
@@ -36,8 +36,11 @@ contract EightBitElon is ERC721, Ownable {
         _tokenNames[tokenId] = _name;
     }
 
-    function setTokenValue(uint256 tokenId, uint256 _tokenValue) external onlyOwner() {
+    function setTokenValue(uint256 tokenId, uint256 _tokenValue) external {
         require(_exists(tokenId), "ERC721Metadata: URI set of nonexistent token");
+        address tokenOwner = ownerOf(tokenId);
+
+        require(tokenOwner == msg.sender, "only the token owner can update the value");
         _tokenValues[tokenId] = _tokenValue;
     }
     

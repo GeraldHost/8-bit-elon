@@ -21,6 +21,7 @@
     padding: 0;
     display: flex;
     border: 0;
+
     .btn {
       flex: 1;
     }
@@ -37,4 +38,30 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+u {
+  cursor: pointer;
+}
+
+.user-is-owner {
+  form {
+    margin-top: 0.5rem;
+    display: flex;
+  }
+
+  .btn {
+    font-size: 10px;
+  }
+
+  input {
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 0;
+    border: 1px solid black;
+
+    &:focus {
+      outline: none;
+    }
+  }
 }

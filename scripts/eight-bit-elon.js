@@ -6,12 +6,12 @@ function getRandomArbitrary(min, max) {
 }
 
 async function main() {
-  const EightBitElon = await hre.ethers.getContractFactory("EightBitElon");
-  const gerald = await EightBitElon.deploy("EightBitElon", "8BE");
+  const EightBitElon = await hre.ethers.getContractFactory("EightBitElonV2");
+  const elon = await EightBitElon.deploy("EightBitElonV2", "8BE");
 
-  await gerald.deployed();
+  await elon.deployed();
 
-  console.log("EightBitElon deployed to:", gerald.address);
+  console.log("EightBitElonV2 deployed to:", elon.address);
 }
 
 main()
