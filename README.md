@@ -1,6 +1,6 @@
 # 8-bit-elon
 
-NFT Website for selling 8 bit elons
+NFT Website for selling 8 bit elons on cheapETH
 
 https://gerald.host/elon/
 
